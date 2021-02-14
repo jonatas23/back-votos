@@ -73,7 +73,7 @@ public class AssociadoService {
         }
 
         if (!this.validarCpf(associado.getCpf())) {
-            throw new MensagemException("Associado não esta autorizado a executar tal ação!");
+            throw new MensagemException("CPF não esta autorizado a executar está ação!");
         }
 
         if (associadoRepository.buscarCpf(associado.getCpf()) != null){
