@@ -1,9 +1,9 @@
 package com.southsystem.desafio.back.votos.dto;
 
-
-import com.southsystem.desafio.back.votos.entities.Pauta;
-import com.southsystem.desafio.back.votos.entities.Sessao;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -15,7 +15,4 @@ public class SessaoDTO {
     private Integer tempoMinutos;
     private Long idPauta;
 
-    public Sessao transformaParaObjeto(Pauta pauta){
-        return new Sessao(abertura, tempoMinutos, pauta);
-    }
 }

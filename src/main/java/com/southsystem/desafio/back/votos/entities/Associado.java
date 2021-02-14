@@ -32,7 +32,6 @@ public class Associado {
         if ((nome == null || nome == "") || (cpf == null || cpf == "")){
             return false;
         }
-
         return true;
     }
 

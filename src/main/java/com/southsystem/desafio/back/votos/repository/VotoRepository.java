@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface VotoRepository extends JpaRepository<Voto, Long> {
 
-    @Query("SELECT v from Voto v where v.sessao.id = :idSessao")
-    public List<Voto> findSessao(@Param("idSessao") Long idSessao);
+    @Query("SELECT v from Voto v where v.pauta.id = :idPauta")
+    public List<Voto> findSessao(@Param("idPauta") Long idPauta);
 }

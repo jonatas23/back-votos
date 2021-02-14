@@ -12,7 +12,7 @@ import lombok.ToString;
 public class VotoDTO {
 
     private String voto;
-    private Long idSessao;
+    private Long idPauta;
     private String cpfAssociado;
 
 }

@@ -21,14 +21,14 @@ public class Voto {
     private String voto;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Sessao sessao;
+    private Pauta pauta;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Associado associado;
 
-    public Voto(String voto, Sessao sessao, Associado associado) {
+    public Voto(String voto, Pauta pauta, Associado associado) {
         this.voto = voto;
-        this.sessao = sessao;
+        this.pauta = pauta;
         this.associado = associado;
     }
 }

@@ -2,6 +2,7 @@ package com.southsystem.desafio.back.votos.controller;
 
 import com.southsystem.desafio.back.votos.api.ApiError;
 import com.southsystem.desafio.back.votos.dto.VotoDTO;
+import com.southsystem.desafio.back.votos.dto.VotoRespostaDTO;
 import com.southsystem.desafio.back.votos.entities.Voto;
 import com.southsystem.desafio.back.votos.service.VotoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class VotoController {
     @PostMapping(value = "/votar")
     public ResponseEntity<?> votar(@RequestBody VotoDTO votoDTO) {
         try {
-            Voto voto = votoService.salvar(votoDTO);
+            VotoRespostaDTO voto = votoService.salvar(votoDTO);
             return ResponseEntity.status(HttpStatus.OK).body("Voto realizado com sucesso! " + voto);
         } catch (Exception e) {
             return ApiError.error(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

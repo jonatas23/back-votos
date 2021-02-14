@@ -1,8 +1,9 @@
 package com.southsystem.desafio.back.votos.service;
 
 import com.southsystem.desafio.back.votos.dto.VotoDTO;
+import com.southsystem.desafio.back.votos.dto.VotoRespostaDTO;
 import com.southsystem.desafio.back.votos.entities.Associado;
-import com.southsystem.desafio.back.votos.entities.Sessao;
+import com.southsystem.desafio.back.votos.entities.Pauta;
 import com.southsystem.desafio.back.votos.entities.Voto;
 import com.southsystem.desafio.back.votos.exception.MensagemException;
 import com.southsystem.desafio.back.votos.repository.VotoRepository;
@@ -18,22 +19,22 @@ import java.util.List;
 public class VotoService {
 
     VotoRepository votoRepository;
-    SessaoService sessaoService;
     AssociadoService associadoService;
+    PautaService pautaService;
 
     @Autowired
-    public VotoService(VotoRepository votoRepository, @Lazy SessaoService sessaoService, AssociadoService associadoService) {
+    public VotoService(VotoRepository votoRepository, @Lazy PautaService pautaService, AssociadoService associadoService) {
         this.votoRepository = votoRepository;
-        this.sessaoService = sessaoService;
+        this.pautaService = pautaService;
         this.associadoService = associadoService;
     }
 
-    public Voto salvar(VotoDTO votoDTO) throws MensagemException {
+    public VotoRespostaDTO salvar(VotoDTO votoDTO) throws MensagemException {
         try {
             Associado associado = this.validarAssociado(votoDTO.getCpfAssociado());
-            Sessao sessao = sessaoService.validarSessao(votoDTO.getIdSessao());
+            Pauta pauta = pautaService.validarSessao(votoDTO.getIdPauta());
 
-            if (this.buscarSessao(votoDTO.getIdSessao()).stream().anyMatch(v -> v.getAssociado().equals(associado))){
+            if (this.buscarSessao(votoDTO.getIdPauta()).stream().anyMatch(v -> v.getAssociado().equals(associado))){
                 throw new MensagemException("Associado já votou nesta sessão!");
             }
 
@@ -41,8 +42,8 @@ public class VotoService {
                 throw new MensagemException("Os votos são apenas 'Sim'/'Não'!");
             }
 
-            Voto voto = new Voto(votoDTO.getVoto(), sessao, associado);
-            return votoRepository.save(voto);
+            Voto voto = new Voto(votoDTO.getVoto(), pauta, associado);
+            return new VotoRespostaDTO().transformaParaObjeto(votoRepository.save(voto));
         } catch (IOException | JSONException e) {
             throw new MensagemException(e.getMessage());
         }

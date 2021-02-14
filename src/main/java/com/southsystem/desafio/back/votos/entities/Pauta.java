@@ -18,7 +18,18 @@ public class Pauta {
 
     private String nome;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Sessao sessao;
+    private String descricao;
 
+    private Boolean sessaoAbertura;
+
+    private Integer tempoMinutos;
+
+    private Long totalVotosSim;
+
+    private Long totalVotosNao;
+
+    public Pauta(String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+    }
 }
