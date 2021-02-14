@@ -33,13 +33,6 @@ public class PautaService {
         return new PautaRespostaDTO().transformaParaObjeto(pautaRepository.save(pauta));
     }
 
-    public Pauta buscarId(Long idPauta) throws MensagemException {
-        if (idPauta == null || idPauta == 0) {
-            throw new MensagemException("Necessario informar o ID da Pauta!");
-        }
-        return pautaRepository.findById(idPauta).get();
-    }
-
     public List<Pauta> buscarTodos(){
         return pautaRepository.findAll();
     }
@@ -49,11 +42,11 @@ public class PautaService {
 
         if (pauta == null) {
             throw new MensagemException("Necessario informar uma Pauta existente!");
-        } else if (pauta.getSessaoAbertura() != null) {
+        } else if (pauta.getSessaoAberta() != null) {
             throw new MensagemException("Sessão já foi aberta para esta Pauta!");
         }
 
-        pauta.setSessaoAbertura(sessaoDTO.getAbertura());
+        pauta.setSessaoAberta(sessaoDTO.getAbertura());
         pauta.setTempoMinutos(sessaoDTO.getTempoMinutos() == 0 ? 1 : sessaoDTO.getTempoMinutos());
 
         pauta = this.pautaRepository.save(pauta);
@@ -69,7 +62,7 @@ public class PautaService {
         Runnable task = () -> {
             List<Voto> votos = votoService.buscarSessao(pauta.getId());
 
-            pauta.setSessaoAbertura(!pauta.getSessaoAbertura());
+            pauta.setSessaoAberta(!pauta.getSessaoAberta());
             pauta.setTotalVotosSim(votos.stream().filter(v -> v.getVoto().equalsIgnoreCase("SIM")).count());
             pauta.setTotalVotosNao(votos.stream().filter(v -> v.getVoto().equalsIgnoreCase("NÃO") || v.getVoto().equalsIgnoreCase("NAO")).count());
 
@@ -83,7 +76,7 @@ public class PautaService {
     public Pauta validarSessao(Long idPauta) throws MensagemException {
         Pauta pauta = pautaRepository.findById(idPauta).get();
 
-        if (!pauta.getSessaoAbertura()) {
+        if (!pauta.getSessaoAberta()) {
             throw new MensagemException("Sessão fechada!");
         }
 

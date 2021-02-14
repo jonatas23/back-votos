@@ -1,8 +1,8 @@
 package com.southsystem.desafio.back.votos.controller;
 
-import com.southsystem.desafio.back.votos.api.ApiError;
 import com.southsystem.desafio.back.votos.dto.AssociadoDTO;
 import com.southsystem.desafio.back.votos.entities.Associado;
+import com.southsystem.desafio.back.votos.exception.ResponseException;
 import com.southsystem.desafio.back.votos.service.AssociadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/associado")
-public class AssociadoController {
+public class AssociadosController {
 
     @Autowired
     AssociadoService associadoService;
@@ -25,7 +25,7 @@ public class AssociadoController {
             Associado associado = associadoService.salvar(associadoDTO.transformaParaObjeto());
             return ResponseEntity.status(HttpStatus.OK).body("Associado cadastrado com sucesso! " + associado);
         } catch (Exception e) {
-            return ApiError.error(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseException.error(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

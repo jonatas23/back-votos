@@ -1,10 +1,10 @@
 package com.southsystem.desafio.back.votos.controller;
 
-import com.southsystem.desafio.back.votos.api.ApiError;
 import com.southsystem.desafio.back.votos.dto.PautaDTO;
 import com.southsystem.desafio.back.votos.dto.PautaRespostaDTO;
 import com.southsystem.desafio.back.votos.dto.SessaoDTO;
 import com.southsystem.desafio.back.votos.entities.Pauta;
+import com.southsystem.desafio.back.votos.exception.ResponseException;
 import com.southsystem.desafio.back.votos.service.PautaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pauta")
-public class PautaController {
+public class PautasController {
 
     @Autowired
     PautaService pautaService;
@@ -31,7 +31,7 @@ public class PautaController {
             PautaRespostaDTO respostaDTO = pautaService.salvar(pauta.transformaParaObjeto());
             return ResponseEntity.status(HttpStatus.OK).body("Pauta cadastrada com sucesso! " + respostaDTO);
         } catch (Exception e) {
-            return ApiError.error(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseException.error(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -41,7 +41,7 @@ public class PautaController {
             Pauta pauta = pautaService.abrirSessao(sessaoDTO);
             return ResponseEntity.status(HttpStatus.OK).body("Sessão Aberta! " + pauta);
         } catch (Exception e) {
-            return ApiError.error(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseException.error(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

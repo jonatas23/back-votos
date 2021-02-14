@@ -1,4 +1,4 @@
-package com.southsystem.desafio.back.votos.api;
+package com.southsystem.desafio.back.votos.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApiError {
+public class ResponseException {
     public static ResponseEntity badRequest(String mensagem) {
         return error(mensagem, HttpStatus.BAD_REQUEST);
     }
