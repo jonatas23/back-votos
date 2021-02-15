@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/associado")
+@RequestMapping("/aip/associado")
 public class AssociadosController {
 
     @Autowired
