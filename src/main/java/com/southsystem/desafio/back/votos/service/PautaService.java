@@ -5,6 +5,7 @@ import com.southsystem.desafio.back.votos.dto.SessaoDTO;
 import com.southsystem.desafio.back.votos.entities.Pauta;
 import com.southsystem.desafio.back.votos.entities.Voto;
 import com.southsystem.desafio.back.votos.exception.MensagemException;
+import com.southsystem.desafio.back.votos.rabbitmq.RabbitMQSender;
 import com.southsystem.desafio.back.votos.repository.PautaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,13 @@ public class PautaService {
 
     PautaRepository pautaRepository;
     VotoService votoService;
+    RabbitMQSender rabbitMQSender;
 
     @Autowired
-    public PautaService(PautaRepository pautaRepository, VotoService votoService) {
+    public PautaService(PautaRepository pautaRepository, VotoService votoService, RabbitMQSender rabbitMQSender) {
         this.pautaRepository = pautaRepository;
         this.votoService = votoService;
+        this.rabbitMQSender = rabbitMQSender;
     }
 
     public PautaRespostaDTO salvar(Pauta pauta) throws MensagemException {
@@ -66,7 +69,7 @@ public class PautaService {
             pauta.setTotalVotosSim(votos.stream().filter(v -> v.getVoto().equalsIgnoreCase("SIM")).count());
             pauta.setTotalVotosNao(votos.stream().filter(v -> v.getVoto().equalsIgnoreCase("NÃO") || v.getVoto().equalsIgnoreCase("NAO")).count());
 
-            pautaRepository.save(pauta);
+            rabbitMQSender.send(pauta);
         };
 
         ses.schedule(task, pauta.getTempoMinutos(), TimeUnit.MINUTES);
