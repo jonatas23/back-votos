@@ -6,5 +6,26 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - back-network
     restart: always
 
+  web:
+    container_name: web-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./database.mv.db:/database.mv.db
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    networks:
+      - back-network
+    external_links:
+      - rabbitmq
+    restart: always
+
+networks:
+  back-network:
+    external: true
