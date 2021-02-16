@@ -1,5 +1,9 @@
 #!/bin/bash
-echo "Building WAR with maven..."
+echo "Docker RabbitMQ..."
+docker-compose up --build --force-recreate -d
+
+echo "Building..."
 mvn clean install
 
-docker-compose up --build --force-recreate -d
+echo "Execute..."
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar target/votos-0.0.1-SNAPSHOT.jar
