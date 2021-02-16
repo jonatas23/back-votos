@@ -5,7 +5,7 @@ import com.southsystem.desafio.back.votos.dto.SessaoDTO;
 import com.southsystem.desafio.back.votos.entities.Pauta;
 import com.southsystem.desafio.back.votos.entities.Voto;
 import com.southsystem.desafio.back.votos.exception.MensagemException;
-import com.southsystem.desafio.back.votos.rabbitmq.RabbitMQSender;
+import com.southsystem.desafio.back.votos.controller.rabbitmq.RabbitMQSender;
 import com.southsystem.desafio.back.votos.repository.PautaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

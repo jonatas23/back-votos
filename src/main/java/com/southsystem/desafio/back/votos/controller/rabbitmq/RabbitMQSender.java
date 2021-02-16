@@ -1,4 +1,4 @@
-package com.southsystem.desafio.back.votos.rabbitmq;
+package com.southsystem.desafio.back.votos.controller.rabbitmq;
 
 import com.southsystem.desafio.back.votos.entities.Pauta;
 import org.springframework.amqp.core.AmqpTemplate;
