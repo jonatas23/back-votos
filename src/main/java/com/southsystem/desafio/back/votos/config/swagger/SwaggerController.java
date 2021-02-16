@@ -1,4 +1,4 @@
-package com.southsystem.desafio.back.votos.swagger;
+package com.southsystem.desafio.back.votos.config.swagger;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

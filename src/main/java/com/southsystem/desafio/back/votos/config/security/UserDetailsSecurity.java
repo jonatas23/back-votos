@@ -1,4 +1,4 @@
-package com.southsystem.desafio.back.votos.security;
+package com.southsystem.desafio.back.votos.config.security;
 
 import com.southsystem.desafio.back.votos.entities.Associado;
 import com.southsystem.desafio.back.votos.repository.AssociadoRepository;
