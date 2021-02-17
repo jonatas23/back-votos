@@ -2,10 +2,14 @@ package com.southsystem.desafio.back.votos.dto;
 
 import com.southsystem.desafio.back.votos.entities.Pauta;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class PautaRespostaDTO {
 
     private Long id;
